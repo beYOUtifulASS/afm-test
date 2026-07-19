@@ -34,8 +34,8 @@
             margin: 20px 0;
         }
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 220px;
+            height: 220px;
             object-fit: contain;
             border-radius: 50%;
             margin-bottom: 15px;
@@ -67,6 +67,39 @@
             width: 0%;
             background: #e5ab3c;
             transition: width 0.3s ease;
+        }
+        
+        /* Startbildschirm & Fragen */
+        #welcome-screen {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        .welcome-text {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        .start-btn {
+            background: #e5ab3c;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+        .start-btn:hover {
+            background: #cc9630;
+            transform: translateY(-2px);
+        }
+        
+        #quiz-screen {
+            display: none;
         }
         .question-card {
             display: none;
@@ -199,20 +232,29 @@
 <body>
 
 <div class="quiz-container">
-    <img src="https://images.squarespace-cdn.com/content/v1/56c5476d01dbae20d7ee8200/1710928734208-Y18Z8F1OMN26L4UDRG62/watermarked_img_10149981022973912861.png" alt="Quiz Logo" class="logo">
+    <img src="logo.png" alt="Quiz Logo" class="logo">
     <h1>AFM-Snackline Edition</h1>
     <div class="subtitle">💙 ATZIG • 🩷 FOTZIG • 💛 MAUSIG</div>
 
-    <div id="progress-container">
+    <!-- STARTSEITE -->
+    <div id="welcome-screen">
+        <p class="welcome-text">Mache den Test, um herauszufinden, wie atzig, fotzig, mausig du bist!</p>
+        <button class="start-btn" onclick="startQuiz()">Test starten 🚀</button>
+    </div>
+
+    <!-- FORTSCHRITT (erst beim Start sichtbar) -->
+    <div id="progress-container" style="display: none;">
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
     </div>
 
+    <!-- FRAGEN -->
     <div id="quiz-screen">
         <div id="questions-target"></div>
     </div>
 
+    <!-- ERGEBNIS -->
     <div id="result-screen">
         <h2>Deine Auswertung</h2>
         <div id="comparison-notification" class="comparison-box" style="display: none;">
@@ -325,7 +367,7 @@
         {
             q: "Puzzleabend:",
             a: "Du puzzelst Elemente aus der Mitte zusammen",
-            b: "Du macht den Rand und stehst danach einfach rum und kommentierst das Gelingen der anderen",
+            b: "Du machst den Rand und stehst danach einfach rum und kommentierst das Gelingen der anderen",
             c: "Du suchst für andere die Teile"
         }
     ];
@@ -364,6 +406,12 @@
             `;
             target.appendChild(card);
         });
+    }
+
+    function startQuiz() {
+        document.getElementById('welcome-screen').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'block';
+        document.getElementById('quiz-screen').style.display = 'block';
         updateProgressBar();
     }
 
@@ -436,7 +484,7 @@
         const cPct = ((scores.c / totalAnswers) * 100).toFixed(1);
 
         const baseUrl = window.location.href.split('?')[0];
-        const shareUrl = `${baseUrl}?a=${aPct}&b=${bPct}&c=${cPct}`;
+        const shareUrl = `${baseUrl}?a=${aPct}&b=${bPct}&c=${pct}`;
 
         navigator.clipboard.writeText(shareUrl).then(() => {
             alert("Der Link wurde in deine Zwischenablage kopiert! Schicke ihn jetzt deinen Freunden. 🚀");
