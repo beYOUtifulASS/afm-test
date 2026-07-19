@@ -4,114 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wie atzig, fotzig oder mausig bist du?</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .quiz-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 100%;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 1.6rem;
-        }
-        .question {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #34495e;
-        }
-        .answers {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .btn {
-            background-color: #ecf0f1;
-            border: 2px solid #bdc3c7;
-            border-radius: 6px;
-            padding: 15px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .btn:hover {
-            background-color: #3498db;
-            color: #fff;
-            border-color: #2980b9;
-        }
-        .progress {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-        }
-        .result-container {
-            display: none;
-            text-align: center;
-        }
-        .result-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin-bottom: 15px;
-        }
-        .result-desc {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .restart-btn {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .restart-btn:hover {
-            background-color: #27ae60;
-        }
-    </style>
 </head>
-<body>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
 
-<div class="quiz-container">
-    <h1>Wie atzig, fotzig oder mausig bist du?</h1>
+<div class="quiz-container" style="background-color: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%; padding: 30px; box-sizing: border-box;">
+    <h1 style="text-align: center; color: #2c3e50; margin-bottom: 30px; font-size: 1.6rem;">Wie atzig, fotzig oder mausig bist du?</h1>
     
     <div id="quiz-box">
-        <div class="question" id="question-text">Frage wird geladen...</div>
-        <div class="answers" id="answer-buttons">
-            <!-- Buttons werden dynamisch eingefügt -->
-        </div>
-        <div class="progress" id="progress-text">Frage 1 von 13</div>
+        <div class="question" id="question-text" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; color: #34495e;">Frage wird geladen...</div>
+        <div class="answers" id="answer-buttons" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        <div class="progress" id="progress-text" style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: #7f8c8d;">Frage 1 von 13</div>
     </div>
 
-    <div id="result-box" class="result-container">
-        <div class="result-title" id="result-name">Dein Ergebnis</div>
-        <div class="result-desc" id="result-description">Beschreibung</div>
-        <button class="restart-btn" onclick="restartQuiz()">Quiz neustarten</button>
+    <div id="result-box" class="result-container" style="display: none; text-align: center;">
+        <div class="result-title" id="result-name" style="font-size: 1.8rem; font-weight: bold; color: #27ae60; margin-bottom: 15px;">Dein Ergebnis</div>
+        <div class="result-desc" id="result-description" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">Beschreibung</div>
+        <button class="restart-btn" id="restart-button" style="background-color: #2ecc71; color: white; border: none; padding: 12px 25px; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.2s;">Quiz neustarten</button>
     </div>
 </div>
 
@@ -260,8 +168,32 @@
         currentQuestion.answers.forEach(answer => {
             const button = document.createElement('button');
             button.innerText = answer.text;
-            button.classList.add('btn');
-            button.onclick = function() { selectAnswer(answer.type); };
+            button.style.backgroundColor = '#ecf0f1';
+            button.style.border = '2px solid #bdc3c7';
+            button.style.border_radius = '6px';
+            button.style.padding = '15px 20px';
+            button.style.fontSize = '1rem';
+            button.style.cursor = 'pointer';
+            button.style.textAlign = 'left';
+            button.style.width = '100%';
+            button.style.boxSizing = 'border-box';
+            button.style.color = '#333';
+            button.style.marginBottom = '4px';
+
+            button.onmouseover = function() {
+                this.style.backgroundColor = '#3498db';
+                this.style.color = '#fff';
+                this.style.borderColor = '#2980b9';
+            };
+            button.onmouseout = function() {
+                this.style.backgroundColor = '#ecf0f1';
+                this.style.color = '#333';
+                this.style.borderColor = '#bdc3c7';
+            };
+
+            button.addEventListener('click', function() {
+                selectAnswer(answer.type);
+            });
             answerButtonsContainer.appendChild(button);
         });
     }
@@ -289,11 +221,13 @@
         document.getElementById('result-description').innerText = profiles[winner].desc;
     }
 
-    function restartQuiz() {
-        startQuiz();
-    }
+    document.getElementById('restart-button').addEventListener('click', startQuiz);
 
-    window.onload = startQuiz;
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        startQuiz();
+    } else {
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    }
 </script>
 
 </body>
